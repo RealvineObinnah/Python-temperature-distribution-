@@ -47,7 +47,7 @@ with st.form("input_form"):
            #nx = 6  
 
 total_hours = st.number_input("Total simulation Time (Hours)",value = 2.0)
-   nx = st.slider("Number of Nodes(nx)",min_values=5, max_value=20,value=6)
+   nx = st.slider("Number of Nodes(nx)",min_value =5, max_value=20,value=6)
 
 
     submit_button = st.form_submit_button(label='🚀 SOLVE PROBLEM')
@@ -60,9 +60,9 @@ if submit_button:
     #dt_hr = dt_sec / 3600
     #nt = 7  
 
-dt_sec = (Fo * (dx ** 2))/ alpha
-dt_hr = dt_sec / 3600
-nt = int(total_hours / dt_hr) + 1
+    dt_sec = (Fo * (dx ** 2))/ alpha
+    dt_hr = dt_sec / 3600
+    nt = int(total_hours / dt_hr) + 1
 
     
     
@@ -73,7 +73,7 @@ nt = int(total_hours / dt_hr) + 1
     
     for p in range(0, nt - 1):
         for n in range(1, nx - 1):
-            T[p+1, n] = Fo * (T[p, n-1] + T(p,n+1]) + (1- 2*Fo)*T[p, n]
+            T[p+1, n] = Fo * (T[p, n-1] + T([p,n+1]) + (1- 2*Fo)*T[p, n]
             
     time_steps = np.arange(nt) * dt_hr
 
