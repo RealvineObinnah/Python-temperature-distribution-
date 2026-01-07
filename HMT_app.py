@@ -63,7 +63,7 @@ if submit_button:
     
     for p in range(0, nt - 1):
         for n in range(1, nx - 1):
-            T[p+1, n] = (T[p, n-1] + 2*T[p, n] + T[p, n+1]) / 4
+            T[p+1, n] = Fo * (T[p, n-1] + (1/Fo - 2)*T[p, n] + T[p, n+1]) 
             
     time_steps = np.arange(nt) * dt_hr
 
