@@ -1,4 +1,4 @@
-import streamlit as st  #THESE ARE THE LIBRARIES
+qimport streamlit as st  #THESE ARE THE LIBRARIES
 import numpy as np
 import pandas as pd
 import plotly.graph_objects as go
@@ -43,7 +43,12 @@ with st.form("input_form"):
         with col_b:
             Ti = st.number_input("Initial Wall Temp (°C)", value=100.0)
             Tf_heater = st.number_input("Max Heater Temp (°C)", value=700.0)
-            nx = 6  
+
+           #nx = 6  
+
+total_hours = st.number_input("Total simulation Time (Hours)",value = 2.0)
+   nx = st.slider("Number of Nodes(nx)",min_values=5, max_value=20,value=6)
+
 
     submit_button = st.form_submit_button(label='🚀 SOLVE PROBLEM')
 
@@ -51,9 +56,14 @@ if submit_button:
     # CALCULATIONS
     dx = L / (nx - 1)
     
-    dt_sec = (Fo * (dx ** 2)) / alpha
-    dt_hr = dt_sec / 3600
-    nt = 7  
+    #dt_sec = (Fo * (dx ** 2)) / alpha
+    #dt_hr = dt_sec / 3600
+    #nt = 7  
+
+dt_sec = (Fo * (dx ** 2))/ alpha
+dt_hr = dt_sec / 3600
+nt = int(total_hours / dt_hr) + 1
+
     
     
     T = np.full((nt, nx), Ti)
@@ -63,7 +73,7 @@ if submit_button:
     
     for p in range(0, nt - 1):
         for n in range(1, nx - 1):
-            T[p+1, n] = Fo * (T[p, n-1] + (1/Fo - 2)*T[p, n] + T[p, n+1]) 
+            T[p+1, n] = Fo * (T[p, n-1] + T(p,n+1]) + (1- 2*Fo)*T[p, n]
             
     time_steps = np.arange(nt) * dt_hr
 
